@@ -4,7 +4,12 @@ import './App.css';
 
 import Header from './navigation/Header';
 import TaskList from './task/TaskList';
+import TaskDetail from './task/TaskDetail';
+import TaskCreate from './task/TaskCreate';
+import TaskEdit from './task/TaskEdit';
 import CategoryList from './category/CategoryList';
+import CategoryEdit from './category/CategoryEdit';
+import CategoryCreate from './category/CategoryCreate';
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -15,9 +20,12 @@ import {
   Switch,
   Route,
   Link,
-  useParams
+  useParams,
+  NavLink
 } from "react-router-dom";
-import TaskDetail from './task/TaskDetail';
+
+
+
 
 function App() {
   return (
@@ -26,6 +34,7 @@ function App() {
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
     
 
+    
 
 
       <Router>
@@ -37,13 +46,17 @@ function App() {
             <Col xs={6}>
               <Switch>
               <Route path={"/taskList"}><TaskList /></Route>
+              <Route path={"/taskDetail/:id"} ><TaskDetail/></Route>
+              <Route path={"/taskCreate"} ><TaskCreate/></Route>
+              <Route path={"/taskEdit/:id"} ><TaskEdit/></Route>
               <Route path={"/categoryList"} ><CategoryList/></Route>
-              <Route path={"/taskDetail"} ><TaskDetail/></Route>
+              <Route path={"/categoryEdit/"} ><CategoryEdit/></Route>
+              <Route path={"/categoryCreate/"} ><CategoryCreate/></Route>
               </Switch>
             </Col>
             <Col>
-              <Route path={"/taskList"}><button>Create Task</button></Route>
-              <Route path={"/categoryList"}><button>Create Category</button></Route>
+              <Route path={"/taskList"}><button><NavLink to={"/taskCreate"}>Create Task</NavLink></button></Route>
+              <Route path={"/categoryList"}><button><NavLink to={"/categoryCreate"}>Create Category</NavLink></button></Route>
             </Col>
           </Row>
         </Container>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { withRouter } from 'react-router-dom';
+import Badge from 'react-bootstrap/Badge'
 
 
 class TaskList extends React.Component {
@@ -18,23 +19,23 @@ class TaskList extends React.Component {
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         fetch("http://localhost:8080/")
-        .then(res => res.json())
-        .then(
-            (result) => {
-                console.log(result);
-                this.setState({
-                    isLoaded: true, 
-                    tasks: result
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result);
+                    this.setState({
+                        isLoaded: true,
+                        tasks: result
+                    })
                 })
-            })
     }
 
     taskSelected = (task) => {
         const { history } = this.props;
-        if(history) history.push('/taskDetail/'+task.task_id);
-        
+        if (history) history.push('/taskDetail/' + task.task_id);
+
     }
 
     render() {
@@ -43,7 +44,20 @@ class TaskList extends React.Component {
         return (
             <ListGroup>
                 {this.state.tasks.map((task, i) => {
-                    return <ListGroup.Item key={i} action onClick={()=> this.taskSelected(task)} >{task.task_title}</ListGroup.Item>
+                    return (
+                        <ListGroup.Item style={{textAlign: 'left'}} class="primary-btn col-xs-11 text-left" key={i} action onClick={() => this.taskSelected(task)} >
+                            <div>{task.task_title}</div>
+                            <div>
+                                <Badge pill variant="secondary">
+                                    {task.category_name}
+                                </Badge>{' '}
+                            </div>
+                        </ListGroup.Item>
+                    )
+
+
+
+
                 })}
             </ListGroup>
         )
